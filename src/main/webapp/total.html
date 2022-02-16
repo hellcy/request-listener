@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/echarts.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div id="main" style="width: 600px; height: 400px;"></div>
+<script type="text/javascript">
+    function showChart() {
+        $.ajax({
+            url: "./rt",
+            type: "get",
+            dataType: "json",
+            success: function (json) {
+                console.log(json.timeList);
+                console.log(json.valueList);
+
+                var myChart = echarts.init(document.getElementById('main'));
+                var option = {
+                    title: {
+                        text: 'request numbers analysis'
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: json.timeList
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    legend : {
+                        data : [ 'numbers' ]
+                    },
+                    series: [
+                        {
+                            data: json.valueList,
+                            type: 'line',
+                            name: 'numbers'
+                        }
+                    ]
+                };
+                myChart.setOption(option);
+            }
+        })
+    }
+
+    window.setInterval("showChart()", 1000);
+</script>
+</body>
+</html>

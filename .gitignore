@@ -50,3 +50,6 @@ $RECYCLE.BIN/
 
 #spring
 .springBeans
+
+# custom settings
+src/main/webapp/js/*
